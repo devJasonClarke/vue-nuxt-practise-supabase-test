@@ -14,6 +14,8 @@
 
       <button type="submit">Sign In</button>
     </form>
+
+    <button type="submit" @click="signUp">Google OAuth</button>
     <h1 v-if="user">Welcom {{ user }}</h1>
   </div>
 </template>
@@ -41,9 +43,8 @@ export default {
   methods: {
     async signUp() {
       const { user, error } = await supabase.auth.signIn({
-        email: this.email,
-        password: this.password,
-        name: this.name
+
+        provider: 'google'
       });
 
       this.valid = true;

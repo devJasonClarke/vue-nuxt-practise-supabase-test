@@ -1,6 +1,7 @@
 <template>
     <div>
 <h1>Hello! {{user}}</h1>
+<img :src="img" :alt="user">
     </div>
 </template>
 
@@ -15,13 +16,16 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
     export default {
         data() {
             return {
-            user: ""
+            user: "",
+            img: ''
             }
         },
         methods: {
            async loadUser() {
                 const user = await supabase.auth.user();
-                this.user = user.user_metadata.name;
+                this.user = user.user_metadata.full_name;
+                this.img = user.user_metadata.avatar_url;
+            console.log(user)
             }
         },
         created () {
